@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gao.myspringboot.mapper.WordMapper">
+
+    <!--增加一个单词-->
+    <insert id="addWord" parameterType="Word">
+        insert into studywords.word(wordName, audio, explanation, example, grade) values (#{wordName},#{audio},#{explanation},#{example},#{grade});
+    </insert>
+    <!--删除一个单词-->
+    <delete id="deleteWord" parameterType="Integer">
+        delete from studywords.word where wordId=#{wordId}
+    </delete>
+
+    <!--修改一个单词-->
+    <update id="updateWord" parameterType="Word" >
+        update studywords.word set
+        wordName=#{wordName},audio=#{audio},explanation=#{explanation},example=#{example},grade=#{grade}
+        where wordId=#{wordId};
+    </update>
+
+    <!--根据ID查询一个单词的信息-->
+    <select id="queryWordById" resultType="Word">
+        select * from studywords.word where wordId=#{wordId}
+    </select>
+
+    <!--根据grade查询所有的单词数量 -->
+    <select id="queryAllWordNumberByGrade" resultType="int">
+         SELECT COUNT(wordId) FROM studywords.word where grade=#{grade};
+    </select>
+
+<!--    单词搜索功能-->
+    <select id="queryWordByWord" resultType="Word">
+        select * from studywords.word where wordName=#{word};
+    </select>
+</mapper>
